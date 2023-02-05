@@ -4,12 +4,27 @@ let app = express();
 //require('dotenv').config() and you will need to (Create a .env file in the root of your project directory, and store the variable MESSAGE_STYLE=uppercase in it.)
 
 
+const bodyParser = require('body-parser');
+
+
 app.use('/public', express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
     console.log(`${req.method} ${req.path} - ${req.ip}`);
     next();
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.route('/name')
+    .get(function(req, res) {
+        console.log(req.query);
+        res.json({ name: `${req.query.first} ${req.query.last}` });
+    })
+    .post(function(req, res) {
+        console.log(req.body);
+        res.json({ name: `${req.body.first} ${req.body.last}` })
+    });
 
 app.get('/:word/echo', function(req, res) {
     res.json({ echo: req.params.word });
