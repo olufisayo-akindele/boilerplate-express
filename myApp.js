@@ -4,8 +4,6 @@ let app = express();
 //require('dotenv').config() and you will need to (Create a .env file in the root of your project directory, and store the variable MESSAGE_STYLE=uppercase in it.)
 
 
-const bodyParser = require('body-parser');
-
 
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -56,7 +54,6 @@ app.get('/', function(req, res) {
     console.log(filePath);
     res.sendFile(filePath);
 });
-
 
 
 
